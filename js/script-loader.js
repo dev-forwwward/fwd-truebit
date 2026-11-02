@@ -12,6 +12,7 @@ const modules = [
     { path: 'form', exportName: 'form' },
     { path: 'faqs', exportName: 'faqs' },
     { path: 'footer-date', exportName: 'footerDate' },
+    { path: 'theme', exportName: 'themeToggle' },
 ];
 
 let inits = [];

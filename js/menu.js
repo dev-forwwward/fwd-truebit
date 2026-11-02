@@ -82,6 +82,16 @@ export function navBarMenu() {
 
 
 
+    // Truebit: close the mobile menu when one of its links is tapped (anchors + pages)
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', function (event) {
+            const link = event.target.closest('a');
+            if (!link || !menuNavBar.classList.contains('w--open')) return;
+            trigger.click();
+        });
+    }
+
+
     // ---------------------------------------
     // MENU - ACCORDION
     //https://webflow.com/made-in-webflow/website/pageblock-accordion-with-plus

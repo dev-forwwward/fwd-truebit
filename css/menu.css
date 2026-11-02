@@ -9,8 +9,9 @@
 
 .scrolled {
 
+    /* Truebit: navbar keeps its translucent tb-nav-bg when scrolled (no white text / dark bar) */
     .navbar {
-        color: var(--_primitives---colors--white);
+        color: inherit;
     }
 
     .nav_dropdown_list {
@@ -19,13 +20,13 @@
 
     .menu-icon2_line-top,
     .menu-icon2_line-bottom {
-        background-color: var(--_primitives---colors--white);
+        background-color: var(--_truebit---tb-text);
     }
 
     .padding-global.nav-top,
     .nav-left-line,
     .nav-right-line {
-        background-color: var(--_primitives---colors--neutral-darkest);
+        background-color: transparent;
     }
 
     .nav-left-svg,
@@ -53,38 +54,40 @@
 
 .navbar-menu-open {
 
+    /* Truebit: header stays as designed when the menu is open */
     .navbar {
-        background-color: var(--base-color-brand--eerie-black);
-        border-color: var(--base-color-brand--eerie-black);
-        border-radius: 2rem 2rem 0 0;
+        background-color: transparent;
+        border-color: transparent;
+        border-radius: 0;
     }
 
     .menu-icon2_line-top,
     .menu-icon2_line-bottom {
-        background-color: var(--_primitives---colors--white);
+        background-color: var(--_truebit---tb-text);
     }
 
     .nav_logo {
-        color: var(--_primitives---colors--white);
+        color: inherit;
     }
 
+    /* Truebit: 1.5px lines, 6px apart -> meet in the middle to form the x */
     .menu-icon2_line-top {
-        transform: rotate(45deg);
-        top: 10px;
+        transform: translateY(3.75px) rotate(45deg);
+        top: 0;
     }
 
     .menu-icon2_line-bottom {
-        transform: rotate(-45deg);
-        bottom: 12px;
+        transform: translateY(-3.75px) rotate(-45deg);
+        bottom: 0;
     }
 
     @media screen and (max-width: 991px) {
         .menu-icon2_line-top {
-            top: 4px;
+            top: 0;
         }
 
         .menu-icon2_line-bottom {
-            bottom: 4px;
+            bottom: 0;
         }
     }
 
@@ -199,4 +202,48 @@
     .arrow-icon {
         color: #ffffff;
     }
+}
+
+
+/*
+* TRUEBIT - navbar & mobile menu
+*/
+
+/* The navbar blur lives on a pseudo layer: a backdrop-filter on .navbar_component itself
+   would become the containing block of the fixed .mobile-dropdown-menu and squash it to 64px.
+   The Webflow class keeps its bg + blur so the Designer preview is unchanged. */
+.navbar_component {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background-color: transparent;
+}
+
+.navbar_component::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: var(--_truebit---tb-nav-bg);
+    -webkit-backdrop-filter: blur(7px);
+    backdrop-filter: blur(7px);
+}
+
+.menu-icon2_line-top,
+.menu-icon2_line-bottom {
+    background-color: var(--_truebit---tb-text);
+}
+
+/* menu.js locks scroll with body{position:fixed}: keep the body full width so content doesn't overflow */
+body.navbar-menu-open {
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* Keep the header (and the x) visible when the menu is opened after the navbar hid on scroll */
+body.navbar-menu-open .navbar_component {
+    top: 0 !important;
 }
