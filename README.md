@@ -76,6 +76,10 @@ _Entire file is commented out — not currently active or wired into `script-loa
 - for screens 500px wide and up
 - for screens 768px wide and up
 
+### [`js/theme.js`](js/theme.js) — `themeToggle()`
+
+- this module handles clicks, keyboard and the active state.
+
 ### [`js/works.js`](js/works.js) — `works()`
 
 _No inline section comments found — see source for details._
